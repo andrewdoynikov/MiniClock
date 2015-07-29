@@ -25,7 +25,6 @@ int main(void)
   RTOS_setTaskFunc(set_blink, 0, 500);       // моргание
   RTOS_setTaskFunc(KBD_scan, 10, 0);         // запускаем опрос кнопок
   sei(); 				        			 // Разрешили прерывания
-  LED_clear();
 #if (DEBUG == 1)
   RTC_set_time(23, 58, 50); // Test time
   LED_clear();

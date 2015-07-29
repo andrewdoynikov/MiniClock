@@ -73,9 +73,8 @@ void LED_init(void)
   TIFR0 = (1 << TOV0);          		// очищаем флаг прерывани€ таймера “0
   TIMSK0 |= (1 << TOIE0);       		// разрешаем прерывание по переполнению
   TCNT0 = TIMER0_COUNTER;          		// загружаем начальное зн. в счетный регистр
+
   LED_clear();
-  LED_set_comma_All(0);
-  LED_set_blink_All(0);
 }
 //=============================================================================
 void LED_write(unsigned char value)
