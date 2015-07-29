@@ -85,10 +85,10 @@ void LED_write(unsigned char value)
 ISR(TIMER0_OVF_vect)
 {
   unsigned char ch;
-  PORT(DIGIT_1) &= ~DIGIT_1_LINE;       // гасим все разряды
-  PORT(DIGIT_2) &= ~DIGIT_2_LINE;       // гасим все разряды
-  PORT(DIGIT_3) &= ~DIGIT_3_LINE;       // гасим все разряды
-  PORT(DIGIT_4) &= ~DIGIT_4_LINE;       // гасим все разряды
+//  PORT(DIGIT_1) &= ~DIGIT_1_LINE;       // гасим все разряды
+//  PORT(DIGIT_2) &= ~DIGIT_2_LINE;       // гасим все разряды
+//  PORT(DIGIT_3) &= ~DIGIT_3_LINE;       // гасим все разряды
+//  PORT(DIGIT_4) &= ~DIGIT_4_LINE;       // гасим все разряды
   ch = ind_buf[ind_count];
   if (ind_comma[ind_count] == 1) ch |= (1 << SEG_H);
   if (ind_blink[ind_count] == 1) {
@@ -97,6 +97,10 @@ ISR(TIMER0_OVF_vect)
 #if (LED_TYPE == COMMON_ANODE)
   ch = ~ch; 
 #endif
+  PORT(DIGIT_1) &= ~DIGIT_1_LINE;       // гасим все разряды
+  PORT(DIGIT_2) &= ~DIGIT_2_LINE;       // гасим все разряды
+  PORT(DIGIT_3) &= ~DIGIT_3_LINE;       // гасим все разряды
+  PORT(DIGIT_4) &= ~DIGIT_4_LINE;       // гасим все разряды
   PORT(SEGMENT_PORT) = ch;
   switch(ind_count) {
     case 0:
