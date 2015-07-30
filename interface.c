@@ -16,7 +16,7 @@ extern void (*pState)(unsigned char event);
 #define SET_STATE(a) pState = a  // макрос для смены состояния
 unsigned char blinks = 0;
 uint16_t kbd_count = 0;
-unsigned char hour = 0, min = 0, sec = 0, n_edit = 0, mode = 0;
+unsigned char hour = 0, min = 0, sec = 0, n_edit = 0, mode = 0, type = 0;
 //=============================================================================
 void set_blink(void)
 {
@@ -60,7 +60,7 @@ void run_main(unsigned char event)
 {
   switch(event) {
     case EVENT_TIMER_SECOND:
-	  show_time();
+      show_time();
     break;
     case EVENT_KEY_SET:
 	  KBD_beep();
@@ -72,8 +72,14 @@ void run_main(unsigned char event)
 	  SET_STATE(run_edit_time);
     break;
     case EVENT_KEY_LEFT:
+	  KBD_beep();
+	  type = !type;
+      show_time();
     break;
     case EVENT_KEY_RIGHT:
+	  KBD_beep();
+	  type = !type;
+      show_time();
     break;
   }
 }
@@ -143,8 +149,13 @@ void show_time(void)
 {
   unsigned char hour, min, sec;
   RTC_get_time(&hour, &min, &sec);
-  show_hour(hour);
-  show_min(min);
+  if (type == 0) {
+    show_hour(hour);
+    show_min(min);
+  } else {
+    show_hour(min);
+    show_min(sec);
+  }
   if (blinks == 1) {
     LED_set_comma(1, 3);
     LED_set_comma(1, 4);
