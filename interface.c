@@ -94,6 +94,7 @@ void run_edit_time(unsigned char event)
       LED_set_comma(1, 4);
     break;
     case EVENT_KEY_SET:
+	  type = 0;
 	  KBD_beep();
 	  n_edit++;
 	  if (n_edit > 1) {
